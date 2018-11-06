@@ -181,11 +181,11 @@ resource "aws_instance" "ma-bastion-2" {
 }
 
 resource "aws_eip" "ma-eip-1" {
-    instance = "${aws_instance.ma-webserver-1.id}"
+    instance = "${aws_instance.ma-bastion-1.id}"
 }
 
 resource "aws_eip" "ma-eip-2" {
-    instance = "${aws_instance.ma-webserver-2.id}"
+    instance = "${aws_instance.ma-bastion-2.id}"
 }
 
 resource "aws_elb" "ma-lb-1" {
