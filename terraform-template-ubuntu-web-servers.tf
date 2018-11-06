@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-18.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
   }
 
   filter {
@@ -46,13 +46,13 @@ provider "aws" {
     region = "${var.region}"
 }
 
-resource "aws_s3_bucket" "ma-s3-bucket-1" {
-    bucket = "ma-s3-bucket-1-data"
+resource "aws_s3_bucket" "ma-s3-bucket-eu-1" {
+    bucket = "ma-s3-bucket-eu-1-data"
     region = "${var.region}"
     acl = "private"
 
     tags {
-        Name = "${var.environment}-BUCKET001"
+        Name = "${var.environment}-BUCKETEU001"
         Environment = "${var.environment}"
     }
 }
@@ -71,7 +71,7 @@ resource "aws_instance" "ma-webserver-1" {
         serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
-    depends_on = ["aws_s3_bucket.ma-s3-bucket-1"]
+    depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
     subnet_id = "${aws_subnet.pub-web-az-a.id}"
     vpc_security_group_ids = ["${aws_security_group.WebserverSG.id}"]
 
@@ -91,7 +91,7 @@ resource "aws_instance" "ma-webserver-2" {
         serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
-    depends_on = ["aws_s3_bucket.ma-s3-bucket-1"]
+    depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
     subnet_id = "${aws_subnet.pub-web-az-b.id}"
     vpc_security_group_ids = ["${aws_security_group.WebserverSG.id}"]
 
@@ -111,7 +111,7 @@ resource "aws_instance" "ma-dbserver-1" {
         serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
-    depends_on = ["aws_s3_bucket.ma-s3-bucket-1"]
+    depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
     subnet_id = "${aws_subnet.priv-db-az-a.id}"
     vpc_security_group_ids = ["${aws_security_group.DBServerSG.id}"]
 
@@ -131,7 +131,7 @@ resource "aws_instance" "ma-dbserver-2" {
         serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
-    depends_on = ["aws_s3_bucket.ma-s3-bucket-1"]
+    depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
     subnet_id = "${aws_subnet.priv-db-az-b.id}"
     vpc_security_group_ids = ["${aws_security_group.DBServerSG.id}"]
 
@@ -151,7 +151,7 @@ resource "aws_instance" "ma-bastion-1" {
         serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
-    depends_on = ["aws_s3_bucket.ma-s3-bucket-1"]
+    depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
     subnet_id = "${aws_subnet.pub-web-az-a.id}"
     vpc_security_group_ids = ["${aws_security_group.bastionhostSG.id}"]
 
@@ -171,7 +171,7 @@ resource "aws_instance" "ma-bastion-2" {
         serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
-    depends_on = ["aws_s3_bucket.ma-s3-bucket-1"]
+    depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
     subnet_id = "${aws_subnet.pub-web-az-b.id}"
     vpc_security_group_ids = ["${aws_security_group.bastionhostSG.id}"]
 
