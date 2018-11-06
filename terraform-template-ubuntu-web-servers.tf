@@ -59,7 +59,7 @@ resource "aws_instance" "ma-webserver-1" {
     vpc_security_group_ids = ["${aws_security_group.WebserverSG.id}"]
 
     provisioner "local-exec" {
-        command = "echo ${aws_instance.ma-server-1.public_ip} > ip_address-web1.txt"
+        command = "echo ${aws_instance.ma-webserver-1.public_ip} > ip_address-web1.txt"
     }
 }
 
@@ -79,7 +79,7 @@ resource "aws_instance" "ma-webserver-2" {
     vpc_security_group_ids = ["${aws_security_group.WebserverSG.id}"]
 
     provisioner "local-exec" {
-        command = "echo ${aws_instance.ma-server-1.public_ip} > ip_address-web2.txt"
+        command = "echo ${aws_instance.ma-webserver-2.public_ip} > ip_address-web2.txt"
     }
 }
 
@@ -99,7 +99,7 @@ resource "aws_instance" "ma-dbserver-1" {
     vpc_security_group_ids = ["${aws_security_group.DBServerSG.id}"]
 
     provisioner "local-exec" {
-        command = "echo ${aws_instance.ma-server-1.public_ip} > ip_address-db1.txt"
+        command = "echo ${aws_instance.ma-dbserver-1.public_ip} > ip_address-db1.txt"
     }
 }
 
@@ -119,7 +119,7 @@ resource "aws_instance" "ma-dbserver-2" {
     vpc_security_group_ids = ["${aws_security_group.DBServerSG.id}"]
 
     provisioner "local-exec" {
-        command = "echo ${aws_instance.ma-server-1.public_ip} > ip_address-db2.txt"
+        command = "echo ${aws_instance.ma-dbserver-2.public_ip} > ip_address-db2.txt"
     }
 }
 
@@ -139,7 +139,7 @@ resource "aws_instance" "ma-bastion-1" {
     vpc_security_group_ids = ["${aws_security_group.bastionhostSG.id}"]
 
     provisioner "local-exec" {
-        command = "echo ${aws_instance.ma-server-1.public_ip} > ip_address-bastion1.txt"
+        command = "echo ${aws_instance.ma-bastion-1.public_ip} > ip_address-bastion1.txt"
     }
 }
 
@@ -159,7 +159,7 @@ resource "aws_instance" "ma-bastion-2" {
     vpc_security_group_ids = ["${aws_security_group.bastionhostSG.id}"]
 
     provisioner "local-exec" {
-        command = "echo ${aws_instance.ma-server-1.public_ip} > ip_address-bastion2.txt"
+        command = "echo ${aws_instance.ma-bastion-2.public_ip} > ip_address-bastion2.txt"
     }
 }
 
