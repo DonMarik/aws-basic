@@ -3,14 +3,28 @@
 variable "access_key" {}
 variable "secret_key" {}
 variable "region" {
-    type = "list"
-    default = ["eu-west-1"]
+    default = "eu-west-1"
 }
 variable "amis" {
     type = "map"
     default = {
         "eu-west-1" = "ami-00035f41c82244dab"
     }
+}
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-18.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
 }
 variable "key_name" {
     type = "string"
@@ -44,7 +58,10 @@ resource "aws_s3_bucket" "ma-s3-bucket-1" {
 }
 
 resource "aws_instance" "ma-webserver-1" {
+    # mapped ami
     ami = "${lookup(var.amis, var.region)}"
+    # latest ubuntu ami
+    #ami = "${data.aws_ami.ubuntu.id}"
     instance_type = "t2.micro"
     tags {
         Name = "${var.environment}-WEB001"
