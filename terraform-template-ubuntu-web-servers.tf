@@ -66,9 +66,9 @@ resource "aws_instance" "ma-webserver-1" {
     tags {
         Name = "${var.environment}-WEB001"
         Environment = "${var.environment}"
+        Application = "${var.application}"
         sshUser = "ubuntu"
         serverGroup = "webservers"
-        serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
     depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
@@ -86,9 +86,9 @@ resource "aws_instance" "ma-webserver-2" {
     tags {
         Name = "${var.environment}-WEB002"
         Environment = "${var.environment}"
+        Application = "${var.application}"
         sshUser = "ubuntu"
         serverGroup = "webservers"
-        serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
     depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
@@ -106,9 +106,9 @@ resource "aws_instance" "ma-dbserver-1" {
     tags {
         Name = "${var.environment}-DB001"
         Environment = "${var.environment}"
+        Application = "${var.application}"
         sshUser = "ubuntu"
         serverGroup = "dbservers"
-        serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
     depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
@@ -126,9 +126,9 @@ resource "aws_instance" "ma-dbserver-2" {
     tags {
         Name = "${var.environment}-DB002"
         Environment = "${var.environment}"
+        Application = "${var.application}"
         sshUser = "ubuntu"
         serverGroup = "dbservers"
-        serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
     depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
@@ -146,9 +146,9 @@ resource "aws_instance" "ma-bastion-1" {
     tags {
         Name = "${var.environment}-BASTION001"
         Environment = "${var.environment}"
+        Application = "${var.application}"
         sshUser = "ubuntu"
         serverGroup = "bastionservers"
-        serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
     depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
@@ -166,9 +166,9 @@ resource "aws_instance" "ma-bastion-2" {
     tags {
         Name = "${var.environment}-BASTION002"
         Environment = "${var.environment}"
+        Application = "${var.application}"
         sshUser = "ubuntu"
         serverGroup = "bastionservers"
-        serverStack = "automation_stack"
     }
     key_name = "${aws_key_pair.ma-keypair.key_name}"
     depends_on = ["aws_s3_bucket.ma-s3-bucket-eu-1"]
