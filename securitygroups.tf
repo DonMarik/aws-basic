@@ -58,17 +58,24 @@ resource "aws_security_group" "WebserverSG"
       security_groups = ["${aws_security_group.bastionhostSG.id}"]
       description = "Allow incoming ICMP from management IPs"
     }
+    # egress {
+    #     from_port = 0
+    #     to_port = 0
+    #     protocol = "-1"
+    #     self = true
+    # }
+    # egress {
+    #     from_port = 3128
+    #     to_port = 3128
+    #     protocol = "TCP"
+    #     security_groups = ["${aws_security_group.bastionhostSG.id}"]
+    # }
     egress {
         from_port = 0
         to_port = 0
+        cidr_blocks = ["0.0.0.0/0"]
         protocol = "-1"
-        self = true
-    }
-    egress {
-        from_port = 3128
-        to_port = 3128
-        protocol = "TCP"
-        security_groups = ["${aws_security_group.bastionhostSG.id}"]
+        description = "Allow all outgoing traffic"
     }
     tags
     {
@@ -171,11 +178,18 @@ resource "aws_security_group" "DBServerSG" {
       security_groups = ["${aws_security_group.bastionhostSG.id}"]
       description = "Allow incoming ICMP from management IPs"
     }
+    # egress {
+    #     from_port = 3128
+    #     to_port = 3128
+    #     protocol = "TCP"
+    #     security_groups = ["${aws_security_group.bastionhostSG.id}"]
+    # }
     egress {
-        from_port = 3128
-        to_port = 3128
-        protocol = "TCP"
-        security_groups = ["${aws_security_group.bastionhostSG.id}"]
+        from_port = 0
+        to_port = 0
+        cidr_blocks = ["0.0.0.0/0"]
+        protocol = "-1"
+        description = "Allow all outgoing traffic"
     }
     tags
     {
